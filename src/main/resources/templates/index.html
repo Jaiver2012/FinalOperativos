@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>Final Operativos</title>
+</head>
+ 
+
+<body>
+    <button th:onclick="'javascript:sayHello(\'hello\')'">Say Hello</button>
+</body>
+
+<div id="tabla">
+<table class="table table-dark">
+</table>
+
+</div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+d3.text("../docs/process.csv", function(data) {
+var parsedCSV = d3.csv.parseRows(data);
+var container = d3.select("#tabla")
+.append("table")
+.selectAll("tr")
+.data(parsedCSV).enter()
+.append("tr")
+.selectAll("td")
+.data(function(d) {return d;}).enter()
+.append("td")
+.text(function(d) {return d;});
+});
+</script>
+
+
+<script>
+    function sayHello(text) {
+       
+        d3.text("../docs/prueba.csv", function(data) {
+        	var parsedCSV = d3.csv.parseRows(data);
+        	var container = d3.select("#tabla")
+        	.append("table")
+        	.selectAll("tr")
+        	.data(parsedCSV).enter()
+        	.append("tr")
+        	.selectAll("td")
+        	.data(function(d) {return d;}).enter()
+        	.append("td")
+        	.text(function(d) {return d;});
+        	});
+        
+    }
+</script>
+</html>

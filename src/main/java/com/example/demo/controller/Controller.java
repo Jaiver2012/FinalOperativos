@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -96,6 +97,13 @@ public class Controller {
 
 		if (proceso != null) {
 			procesoRepository.deleteById(proceso.getId());
+			Runtime runtime = Runtime.getRuntime();
+			try {
+				Process proc = runtime.exec("powershell kill " + proceso.getId());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			flag = true;
 
 		}

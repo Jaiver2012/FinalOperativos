@@ -5,6 +5,7 @@ package com.example.demo;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,33 +30,12 @@ public class FinalOpApplication {
 	        String line2;
 	        while ((line = reader.readLine()) != null)
 	        {
-
-	        	System.out.println(line);
 	        	
-//	        		
-//	        		line = reader.readLine();
-//	        		String[] test1 = line.split(":");
-//	        		
-//	        		line = reader.readLine();
-//	        		String[] test2 = line.split(":");
-//	        		
-//	        		line = reader.readLine();
-//	        		String[] test3 = line.split(":");
-//	        		
-//	        		line = reader.readLine();
-//	        		String[] test4 = line.split(":");
-//	        		
-//	        		line = reader.readLine();
-//	        		String[] test5 = line.split(":");
-//	        		
-//	        		line = reader.readLine();
-//	        		String[] test6 = line.split(":");
-//	        		
-//	        		
-//	        		System.out.println(processArray.size());
-//	        		Proceso p = new Proceso(test1[1], test2[1], test3[1],
-//	        				test4[1], test5[1], test6[1]);
-//	        		processArray.add(p);
+	        	System.out.println(line);
+	        	String[] p=line.split("\\s+");
+	        	System.out.println(Arrays.toString(p));	  
+	        	
+	        	
 	        	}
 
 

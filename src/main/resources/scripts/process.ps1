@@ -1,1 +1,1 @@
-Get-Process|fl -Property  Id, Name, CPU, Npm, SI,pm
+Get-Process|select id,name,cpu,si

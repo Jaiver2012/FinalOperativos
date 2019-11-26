@@ -54,9 +54,20 @@ public class Controller {
 					
 					if(p.length==8) {
 						p1.setNombre(p[7]);
+						p1.setSi(p[6]);
+						p1.setId(Long.parseLong(p[5]));
+						//p1.setCpu(p[4]);
+						p1.setPm(p[2]);
+						p1.setNpm(p[1]);
 					}
 					else {
 						p1.setNombre(p[8]);	
+						p1.setSi(p[7]);
+						p1.setId(Long.parseLong(p[6]));
+						p1.setCpu(p[5]);
+						p1.setPm(p[3]);
+						p1.setNpm(p[2]);
+						
 					}
 					
 

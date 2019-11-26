@@ -15,7 +15,6 @@ import lombok.NonNull;
 public class Proceso {
 
 		@Id
-		@GeneratedValue(strategy=GenerationType.AUTO)
 		private Long id;
 
 		private String nombre;

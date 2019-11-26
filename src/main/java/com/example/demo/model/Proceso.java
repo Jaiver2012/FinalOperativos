@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Proceso {
 
-		private String id;
+		private Long id;
 		private String nombre;
 		private String cpu;
 		private String si;
@@ -13,7 +13,7 @@ public class Proceso {
 		private String npm;
 
 
-		public Proceso(String id, String name, String cpu, String npm, String si, String pm) {
+		public Proceso(Long id, String name, String cpu, String npm, String si, String pm) {
 			this.id=id;
 			this.nombre=name;
 			this.cpu=cpu;
@@ -22,5 +22,69 @@ public class Proceso {
 			this.pm=pm;
 			
 		}
+
+
+		public Long getId() {
+			return id;
+		}
+
+
+		public void setId(Long id) {
+			this.id = id;
+		}
+
+
+		public String getNombre() {
+			return nombre;
+		}
+
+
+		public void setNombre(String nombre) {
+			this.nombre = nombre;
+		}
+
+
+		public String getCpu() {
+			return cpu;
+		}
+
+
+		public void setCpu(String cpu) {
+			this.cpu = cpu;
+		}
+
+
+		public String getSi() {
+			return si;
+		}
+
+
+		public void setSi(String si) {
+			this.si = si;
+		}
+
+
+		public String getPm() {
+			return pm;
+		}
+
+
+		public void setPm(String pm) {
+			this.pm = pm;
+		}
+
+
+		public String getNpm() {
+			return npm;
+		}
+
+
+		public void setNpm(String npm) {
+			this.npm = npm;
+		}
+		
+		//agrego los getteres y settesr porque el data no funciona
+		
+		
 		
 }

@@ -45,18 +45,20 @@ public class Controller {
 
 				String[] p = line.split("\\s+");
 				System.out.println(Arrays.toString(p));
+				System.out.println(p.length);
 
 				if (p.length >= 7 && count > 2) {
 					// System.out.println(Arrays.toString(p));
 
 					Proceso p1 = new Proceso();
 					
+					if(p.length==8) {
+						p1.setNombre(p[7]);
+					}
+					else {
+						p1.setNombre(p[8]);	
+					}
 					
-					p1.setNombre(p[7]);
-					// p1.setId(Long.parseLong(p[5]));
-					p1.setSi(p[6]);
-					p1.setPm(p[3]);
-					p1.setNpm(p[2]);
 
 					procesoRepository.save(p1);
 

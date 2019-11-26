@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,73 +19,98 @@ import com.example.demo.repository.ProcesoRepository;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-	
+
 	@Autowired
 	private ProcesoRepository procesoRepository;
 
-	//Prueba
+	// Prueba
 
 	@PostConstruct
 	public void init() {
-		Proceso p1= new Proceso();
+		Proceso p1 = new Proceso();
 		p1.setNombre("Crhome");
 		p1.setCpu("ss");
 		p1.setNpm("asdasd");
-		
-		
+
 		procesoRepository.save(p1);
+
+		// prueba
+
+		try {
+			Runtime runtime = Runtime.getRuntime();
+			Process proc = runtime.exec("powershell ./src/main/resources/scripts/process.ps1");
+			InputStream is = proc.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader reader = new BufferedReader(isr);
+			String line;
+
+			int count=0;
+			while ((line = reader.readLine()) != null) {
+				
+				System.out.println(line);
+
+				String[] p = line.split("\\s+");
+				 
+				if (p.length >= 7 && count>2) {
+					System.out.println(Arrays.toString(p));	
+					
+				}
+
+				count ++;
+			}
+
+			reader.close();
+			proc.getOutputStream().close();
+		} catch (Exception e) {
+
+		}
+
 	}
-	
+
 	public Proceso addProcess(Proceso proceso) {
 		return procesoRepository.save(proceso);
 	}
-	
-	
+
 	public boolean deleteProcess(Proceso proceso) {
-		
-		boolean flag=false;
-		
-		if(proceso!=null) {
+
+		boolean flag = false;
+
+		if (proceso != null) {
 			procesoRepository.deleteById(proceso.getId());
-			flag=true;
-			
+			flag = true;
+
 		}
-		
+
 		return flag;
-		
+
 	}
-	
-	public List<Proceso> listProcess(){
+
+	public List<Proceso> listProcess() {
 		return (List<Proceso>) procesoRepository.findAll();
 	}
-	
-	
-	@RequestMapping(value= "/listarProcesos", method= RequestMethod.GET)
-	public String handleRequestListarProcesos(Model model) {
-	
-		List<Proceso> procesos = listProcess();
-		model.addAttribute("procesos",procesos);
-		return "listarFormProcesos.html";
-		
-	}
-	
 
-	@RequestMapping(value= "/borrarProceso/{id}", method= RequestMethod.GET)
-	public String handleRequestBorrarUsuarios(Model model, @PathVariable Long id)
-	{
+	@RequestMapping(value = "/listarProcesos", method = RequestMethod.GET)
+	public String handleRequestListarProcesos(Model model) {
+
+		List<Proceso> procesos = listProcess();
+		model.addAttribute("procesos", procesos);
+		return "listarFormProcesos.html";
+
+	}
+
+	@RequestMapping(value = "/borrarProceso/{id}", method = RequestMethod.GET)
+	public String handleRequestBorrarUsuarios(Model model, @PathVariable Long id) {
 		Proceso proceso = procesoRepository.findById(id).get();
 		deleteProcess(proceso);
 		List<Proceso> processList = listProcess();
 		model.addAttribute("procesos", processList);
 		return "listarFormProcesos.html";
 	}
-	@RequestMapping(value= "/volver", method= RequestMethod.GET)
-	public String handleRequestVover()
-	{
+
+	@RequestMapping(value = "/volver", method = RequestMethod.GET)
+	public String handleRequestVover() {
 		return "index.html";
-		
+
 	}
-	
-	
-	
+
 }

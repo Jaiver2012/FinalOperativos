@@ -1,1 +1,1 @@
-Get-Process|select id,name,cpu,si
+Get-Process 

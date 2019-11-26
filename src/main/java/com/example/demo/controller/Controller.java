@@ -59,7 +59,7 @@ public class Controller {
 		deleteProcess(proceso);
 		List<Proceso> processList = listProcess();
 		model.addAttribute("procesos", processList);
-		return "listarFormUsuarios.html";
+		return "listarFormProcesos.html";
 	}
 	
 	

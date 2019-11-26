@@ -1,27 +1,39 @@
 package com.example.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
+@Entity
+@NoArgsConstructor
 public class Proceso {
 
+		@Id
+		@GeneratedValue(strategy=GenerationType.AUTO)
 		private Long id;
+
 		private String nombre;
 		private String cpu;
 		private String si;
 		private String pm;
 		private String npm;
 
-
-		public Proceso(Long id, String name, String cpu, String npm, String si, String pm) {
-			this.id=id;
-			this.nombre=name;
-			this.cpu=cpu;
-			this.npm=npm;
-			this.si=si;
-			this.pm=pm;
-			
-		}
+//
+//		public Proceso(Long id, String name, String cpu, String npm, String si, String pm) {
+//			this.id=id;
+//			this.nombre=name;
+//			this.cpu=cpu;
+//			this.npm=npm;
+//			this.si=si;
+//			this.pm=pm;
+//			
+//		}
 
 
 		public Long getId() {

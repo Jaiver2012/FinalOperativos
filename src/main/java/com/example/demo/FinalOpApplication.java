@@ -1,9 +1,10 @@
 package com.example.demo;
 
+
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +18,6 @@ public class FinalOpApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(FinalOpApplication.class, args);
-				
 		
 		try {
 			Runtime runtime = Runtime.getRuntime();
@@ -61,15 +61,14 @@ public class FinalOpApplication {
 
 	        	
 
-	        
-	       
+	    
 	        reader.close();
 	        proc.getOutputStream().close();
 		}catch(Exception e) {
 			
 		}
 
-		
+				
 	}
 
 }

@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,18 @@ public class Controller {
 	@Autowired
 	private ProcesoRepository procesoRepository;
 
+	//Prueba
+
+	@PostConstruct
+	public void init() {
+		Proceso p1= new Proceso();
+		p1.setNombre("Crhome");
+		p1.setCpu("ss");
+		p1.setNpm("asdasd");
+		
+		
+		procesoRepository.save(p1);
+	}
 	
 	public Proceso addProcess(Proceso proceso) {
 		return procesoRepository.save(proceso);
@@ -61,6 +75,13 @@ public class Controller {
 		model.addAttribute("procesos", processList);
 		return "listarFormProcesos.html";
 	}
+	@RequestMapping(value= "/volver", method= RequestMethod.GET)
+	public String handleRequestVover()
+	{
+		return "index.html";
+		
+	}
+	
 	
 	
 }

@@ -27,12 +27,7 @@ public class Controller {
 
 	@PostConstruct
 	public void init() {
-		Proceso p1 = new Proceso();
-		p1.setNombre("Crhome");
-		p1.setCpu("ss");
-		p1.setNpm("asdasd");
-
-		procesoRepository.save(p1);
+		
 
 		// prueba
 
@@ -50,9 +45,15 @@ public class Controller {
 				System.out.println(line);
 
 				String[] p = line.split("\\s+");
-				 
+				System.out.println(Arrays.toString(p));
 				if (p.length >= 7 && count>2) {
-					System.out.println(Arrays.toString(p));	
+					//System.out.println(Arrays.toString(p));	
+					
+					Proceso p1=new Proceso();
+			
+					p1.setNombre(p[8]);
+					procesoRepository.save(p1);
+				
 					
 				}
 

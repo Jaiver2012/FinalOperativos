@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>Lista de procesos</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Procesos</h1>
+			</div>
+		</div>
+		<div>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>Identificador  </th>
+							<th>Nombre  </th>
+							<th>Cpu  </th>
+							<th>Si  </th>
+							<th>Pm</th>
+							<th>Npm </th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${procesos.empty}">
+							<td colspan="2">No hay procesos</td>
+						</tr>
+						<tr th:each="proceso : ${procesos}">
+							<td><span th:text="${proceso.id}"> Id </span></td>
+							<td><span th:text="${proceso.nombre}"> Nombre </span></td>
+							<td><span th:text="${proceso.cpu}"> Cpu </span></td>
+							<td><span th:text="${proceso.si}"> Si </span></td>
+							<td><span th:text="${proceso.pm}"> Pm </span></td>
+							<td><span th:text="${proceso.npm}"> Npm </span></td>
+							<td><a href="#" th:href="@{'/borrarProceso/'  + ${proceso.id}}"> Borrar  </a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-6">
+				<a href="#" th:href="@{/crearUsuario}"> Agregar usuario </a> <a href="#"> 
+				<a href="#" th:href="@{/volverUsuario}"> volver </a> <a href="#"> 
+			
+			</div>
+			
+		</div>
+	</div>
+</body>
+</html>

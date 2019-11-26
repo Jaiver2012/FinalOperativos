@@ -27,7 +27,6 @@ public class Controller {
 
 	@PostConstruct
 	public void init() {
-		
 
 		// prueba
 
@@ -39,25 +38,24 @@ public class Controller {
 			BufferedReader reader = new BufferedReader(isr);
 			String line;
 
-			int count=0;
+			int count = 0;
 			while ((line = reader.readLine()) != null) {
-				
+
 				System.out.println(line);
 
 				String[] p = line.split("\\s+");
 				System.out.println(Arrays.toString(p));
-				if (p.length >= 7 && count>2) {
-					//System.out.println(Arrays.toString(p));	
-					
-					Proceso p1=new Proceso();
-			
+				if (p.length >= 7 && count > 2) {
+					// System.out.println(Arrays.toString(p));
+
+					Proceso p1 = new Proceso();
+
 					p1.setNombre(p[8]);
 					procesoRepository.save(p1);
-				
-					
+
 				}
 
-				count ++;
+				count++;
 			}
 
 			reader.close();

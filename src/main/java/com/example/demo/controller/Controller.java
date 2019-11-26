@@ -42,7 +42,7 @@ public class Controller {
 	}
 	
 	
-	@RequestMapping(value= "/listarUsuarios", method= RequestMethod.GET)
+	@RequestMapping(value= "/listarProcesos", method= RequestMethod.GET)
 	public String handleRequestListarProcesos(Model model) {
 	
 		List<Proceso> procesos = listProcess();

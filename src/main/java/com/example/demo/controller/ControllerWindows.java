@@ -6,31 +6,29 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.example.demo.model.Proceso;
 import com.example.demo.repository.ProcesoRepository;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class ControllerWindows {
 
 	@Autowired
 	private ProcesoRepository procesoRepository;
 
-	// Prueba
 
 	@PostConstruct
 	public void init() {
 
-		// prueba
-
+		String os = System.getProperty("os.name");
+		System.out.println("---------------------------------------------------------------------------------------------");
+		System.out.println(os);
+		
 		try {
 			Runtime runtime = Runtime.getRuntime();
 			Process proc = runtime.exec("powershell ./src/main/resources/scripts/process.ps1");
@@ -39,6 +37,8 @@ public class Controller {
 			BufferedReader reader = new BufferedReader(isr);
 			String line;
 
+			
+			
 			int count = 0;
 			while ((line = reader.readLine()) != null) {
 
@@ -116,28 +116,43 @@ public class Controller {
 		return (List<Proceso>) procesoRepository.findAll();
 	}
 
-	@RequestMapping(value = "/listarProcesos", method = RequestMethod.GET)
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/listarProcesos/windows", method = RequestMethod.GET)
 	public String handleRequestListarProcesos(Model model) {
 
+				
 		List<Proceso> procesos = listProcess();
 		model.addAttribute("procesos", procesos);
-		return "listarFormProcesos.html";
+		return "listarFormProcesosWindows.html";
 
 	}
 
-	@RequestMapping(value = "/borrarProceso/{id}", method = RequestMethod.GET)
-	public String handleRequestBorrarUsuarios(Model model, @PathVariable Long id) {
+	/**
+	 * Cancela determinado proceso el cual se le pasa el id por parametro
+	 * @param model
+	 * @param id
+	 * @return lista de procesos
+	 */
+	@RequestMapping(value = "/borrarProceso/windows/{id}", method = RequestMethod.GET)
+	public String handleRequestCancelarProcesos(Model model, @PathVariable Long id) {
 		Proceso proceso = procesoRepository.findById(id).get();
 		deleteProcess(proceso);
 		List<Proceso> processList = listProcess();
 		model.addAttribute("procesos", processList);
-		return "listarFormProcesos.html";
+		return "listarFormProcesosWindows.html";
 	}
 
+	/**
+	 * Devuelve a la página  de inicio
+	 * @return index.html: página de inicio
+	 */
 	@RequestMapping(value = "/volver", method = RequestMethod.GET)
-	public String handleRequestVover() {
+	public String handleRequestVolver() {
 		return "index.html";
-
 	}
 
 }

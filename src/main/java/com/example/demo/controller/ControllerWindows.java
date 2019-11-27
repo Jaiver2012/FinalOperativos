@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.model.Proceso;
+import com.example.demo.repository.ProcesoRepository;
 
 @org.springframework.stereotype.Controller
 public class ControllerWindows {
 
 
+	private ProcesoRepository procesoRepository;
 	/**
 	 * 
 	 */
@@ -84,6 +86,33 @@ public class ControllerWindows {
 		}
 		
 		return procesos;
+	}
+
+
+	
+	public Proceso addProcess(Proceso proceso) {
+		return procesoRepository.save(proceso);
+	}
+
+	public boolean deleteProcess(Proceso proceso) {
+
+		boolean flag = false;
+
+		if (proceso != null) {
+			procesoRepository.deleteById(proceso.getId());
+			Runtime runtime = Runtime.getRuntime();
+			try {
+				Process proc = runtime.exec("powershell stop-process " + proceso.getId());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			flag = true;
+
+		}
+
+		return flag;
+
 	}
 
 

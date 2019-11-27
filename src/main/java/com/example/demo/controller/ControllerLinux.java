@@ -59,7 +59,8 @@ public class ControllerLinux {
 				procesos.add(p1);
 			}
 			
-			
+			reader.close();
+			proc.getOutputStream().close();
 		}
 		catch (Exception e)
 		{

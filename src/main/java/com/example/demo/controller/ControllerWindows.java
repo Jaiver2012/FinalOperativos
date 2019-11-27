@@ -4,41 +4,37 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.model.Proceso;
-import com.example.demo.repository.ProcesoRepository;
 
 @org.springframework.stereotype.Controller
 public class ControllerWindows {
 
-	@Autowired
-	private ProcesoRepository procesoRepository;
 
-
-	@PostConstruct
-	public void init() {
+	/**
+	 * 
+	 */
+	public List<Proceso> listProcess() {
 
 		String os = System.getProperty("os.name");
 		System.out.println("---------------------------------------------------------------------------------------------");
 		System.out.println(os);
 		
+		List<Proceso> procesos = new ArrayList<>();
+		
 		try {
-			Runtime runtime = Runtime.getRuntime();
-			Process proc = runtime.exec("powershell ./src/main/resources/scripts/process.ps1");
+			Process proc = Runtime.getRuntime().exec("powershell ./src/main/resources/scripts/process.ps1");
 			InputStream is = proc.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader reader = new BufferedReader(isr);
-			String line;
+			String line ;
 
-			
-			
 			int count = 0;
 			while ((line = reader.readLine()) != null) {
 
@@ -47,11 +43,12 @@ public class ControllerWindows {
 				String[] p = line.split("\\s+");
 				System.out.println(Arrays.toString(p));
 				System.out.println(p.length);
-
+				
 				if (p.length >= 7 && count > 2) {
-					// System.out.println(Arrays.toString(p));
-
+					
 					Proceso p1 = new Proceso();
+
+					
 					
 					if(p.length==8) {
 						p1.setNombre(p[7]);
@@ -72,10 +69,11 @@ public class ControllerWindows {
 					}
 					
 
-					procesoRepository.save(p1);
+					
+					procesos.add(p1);
 
 				}
-
+				
 				count++;
 			}
 
@@ -84,37 +82,12 @@ public class ControllerWindows {
 		} catch (Exception e) {
 
 		}
-
+		
+		return procesos;
 	}
 
-	public Proceso addProcess(Proceso proceso) {
-		return procesoRepository.save(proceso);
-	}
 
-	public boolean deleteProcess(Proceso proceso) {
 
-		boolean flag = false;
-
-		if (proceso != null) {
-			procesoRepository.deleteById(proceso.getId());
-			Runtime runtime = Runtime.getRuntime();
-			try {
-				Process proc = runtime.exec("powershell kill " + proceso.getId());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			flag = true;
-
-		}
-
-		return flag;
-
-	}
-
-	public List<Proceso> listProcess() {
-		return (List<Proceso>) procesoRepository.findAll();
-	}
 
 	/**
 	 * 
@@ -124,7 +97,6 @@ public class ControllerWindows {
 	@RequestMapping(value = "/listarProcesos/windows", method = RequestMethod.GET)
 	public String handleRequestListarProcesos(Model model) {
 
-				
 		List<Proceso> procesos = listProcess();
 		model.addAttribute("procesos", procesos);
 		return "listarFormProcesosWindows.html";
@@ -139,10 +111,15 @@ public class ControllerWindows {
 	 */
 	@RequestMapping(value = "/borrarProceso/windows/{id}", method = RequestMethod.GET)
 	public String handleRequestCancelarProcesos(Model model, @PathVariable Long id) {
-		Proceso proceso = procesoRepository.findById(id).get();
-		deleteProcess(proceso);
-		List<Proceso> processList = listProcess();
-		model.addAttribute("procesos", processList);
+		
+		try {
+			Process proc = Runtime.getRuntime().exec("powershell kill " + id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		List<Proceso> procesos = listProcess();
+		model.addAttribute("procesos", procesos);
 		return "listarFormProcesosWindows.html";
 	}
 

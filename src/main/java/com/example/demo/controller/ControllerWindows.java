@@ -160,5 +160,14 @@ public class ControllerWindows {
 	public String handleRequestVolver() {
 		return "index.html";
 	}
+	
+	@RequestMapping(value = "/actualizar", method = RequestMethod.GET)
+	public String handleRequestActualizar(Model model) {
+		List<Proceso> procesos = listProcess();
+		model.addAttribute("procesos", procesos);
+		
+		return "listarFormProcesosWindows.html";
+	}
+
 
 }
